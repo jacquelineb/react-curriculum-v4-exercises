@@ -17,7 +17,12 @@ export default function StudentWork() {
         development. I like (trying) to learn new things and am currently
         getting into photography after finally buying my first camera last year.
       </p>
-      <p> Student output will go here </p>
+      <p>Some of my hobbies include:</p>
+      <ul>
+        {hobbies.map((hobby, index) => (
+          <li key={index}>{hobby}</li>
+        ))}
+      </ul>
     </div>
   );
 }
