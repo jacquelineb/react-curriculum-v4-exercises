@@ -6,7 +6,7 @@ function SnackList() {
     { name: 'potato chips', rank: 1 },
   ];
 
-  // order snacks from most favorite to least
+  // order snacks from most favorite (rank 1) to least favorite
   const orderedSnacks = snacks.toSorted((a, b) => a.rank - b.rank);
 
   return (
