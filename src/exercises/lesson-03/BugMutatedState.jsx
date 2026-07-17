@@ -13,8 +13,7 @@ export default function BugMutatedState() {
   let [count, setCount] = useState(0);
 
   function handleAdd() {
-    count++;
-    setCount(count);
+    setCount((prev) => prev + 1);
   }
 
   return (
@@ -27,3 +26,9 @@ export default function BugMutatedState() {
 
 // Explanation:
 // (Write your explanation here)
+/*
+  One issue is that the line `count++` attempts to modify the state directly. It's then followed by the code `setCount(count)`.
+  This is an issue because `setCount` might be working with a stale value of `count` and thus the count state might not be updated properly.
+  The fix is to remove the `count++`, and instead of passing the `count` variable to `setCount`, pass an initializer function that returns
+  current count incremented by 1.
+*/
