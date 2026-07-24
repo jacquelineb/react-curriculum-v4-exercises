@@ -1,3 +1,4 @@
+import { useState } from 'react';
 // src/exercises/lesson-03/BugProps.jsx
 
 /*
@@ -13,10 +14,10 @@
 */
 
 export default function BugProps({ name = 'friend' }) {
-  let message = 'Hello, ' + name;
+  const [message, setMessage] = useState(name);
 
   function handleChange() {
-    message = 'Hi, ' + name + '!';
+    setMessage('Hi, ' + name + '!');
   }
 
   return (
@@ -29,3 +30,8 @@ export default function BugProps({ name = 'friend' }) {
 
 // Explanation:
 // (Write your explanation here)
+/*
+  Use state to store the message instead of a regular variable. This way, whenever the state/message
+  changes, React will re-render and display the updated message. In `handleChange()`, we also need
+  to use the `setMessage` function to update `message` state instead of modifying it directly.
+*/
