@@ -30,15 +30,39 @@ export default function SnackForm({
 
   function handleSubmit(e) {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const name = formData.get('name');
-    const rating = formData.get('rating');
 
-    if (isEditing) {
-      updateSnack(editingSnack.id, name, rating);
+    if (validateName() && validateRating()) {
+      if (isEditing) {
+        updateSnack(editingSnack.id, name, rating);
+      } else {
+        addSnack(name, rating);
+        setName('');
+        setRating('');
+      }
+      setTouched({ name: false, rating: false });
     } else {
-      addSnack(name, rating);
-      e.target.reset();
+      setTouched({ name: true, rating: true });
+    }
+  }
+
+  function validateName() {
+    // return true if name is not empty after trimming
+    return name.trim() !== '';
+  }
+
+  function validateRating() {
+    return rating !== '';
+  }
+
+  function getNameError() {
+    if (!validateName() && touched.name) {
+      return 'Snack name is required';
+    }
+  }
+
+  function getRatingError() {
+    if (!validateRating() && touched.rating) {
+      return 'Please select a rating';
     }
   }
 
@@ -59,10 +83,10 @@ export default function SnackForm({
           value={name}
           onChange={(e) => setName(e.target.value)}
           onFocus={() => setTouched((prev) => ({ ...prev, name: true }))}
-          required
           className={styles['field-input']}
           placeholder="Enter snack name"
         />
+        {getNameError() && <div className={styles.error}>{getNameError()}</div>}
       </div>
 
       <div className={styles['field-container']}>
@@ -73,12 +97,14 @@ export default function SnackForm({
           value={rating} //
           onChange={(e) => setRating(e.target.value)}
           onFocus={() => setTouched((prev) => ({ ...prev, rating: true }))}
-          required
           min="1"
           max="5"
           className={styles['field-input']}
           placeholder="Rate 1-5"
         />
+        {getRatingError() && (
+          <div className={styles.error}>{getRatingError()}</div>
+        )}
       </div>
 
       <div className={styles['button-container']}>
