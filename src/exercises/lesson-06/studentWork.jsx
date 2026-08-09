@@ -23,7 +23,6 @@ export default function StudentWork() {
         <p>Current filter: {filter}</p>
       </div>
 
-      {/* #5: Inline list rendering */}
       <ul>
         {visibleTasks.map((task) => (
           <TaskItem key={task.id} task={task} />
