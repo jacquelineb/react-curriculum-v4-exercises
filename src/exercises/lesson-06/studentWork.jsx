@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import UserProfile from './components/UserProfile.jsx';
 import TaskFilterButtonGroup from './components/TaskFilterButtonGroup.jsx';
-import TaskItem from './TaskItem.jsx';
+import TaskItem from './components/TaskItem.jsx';
 import filterTasks from './utils/filterTasks.js';
 
 export default function StudentWork() {
