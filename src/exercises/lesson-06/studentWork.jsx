@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import UserProfile from './components/UserProfile.jsx';
+import TaskFilterButtonGroup from './components/TaskFilterButtonGroup.jsx';
 
 export default function StudentWork() {
   const [tasks, setTasks] = useState([]);
@@ -35,14 +36,10 @@ export default function StudentWork() {
 
   return (
     <div>
-      {/* #3: Hardcoded UI, not reusable */}
       <UserProfile name={'John Doe'} />
 
-      {/* #4: Repeated button JSX */}
       <div>
-        <button onClick={() => setFilter('all')}>All</button>
-        <button onClick={() => setFilter('completed')}>Completed</button>
-        <button onClick={() => setFilter('pending')}>Pending</button>
+        <TaskFilterButtonGroup onClick={setFilter} />
         <p>Current filter: {filter}</p>
       </div>
 
