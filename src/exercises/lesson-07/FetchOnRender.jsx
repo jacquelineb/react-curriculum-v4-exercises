@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getPosts, getSinglePost } from './api';
+import { getPosts } from './api';
 import './Lesson07Styles.css';
 
 export default function FetchOnRender() {
@@ -8,7 +8,6 @@ export default function FetchOnRender() {
   useEffect(() => {
     (async () => {
       try {
-        // setPosts(getPosts());
         const postData = await getPosts();
         setPosts(postData);
       } catch (error) {
