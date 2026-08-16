@@ -6,8 +6,12 @@ export default function FetchOnClick() {
   const [post, setPost] = useState();
 
   async function handleGetPost(id) {
-    const singlePost = await getSinglePost(id);
-    setPost(singlePost);
+    try {
+      const singlePost = await getSinglePost(id);
+      setPost(singlePost);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
