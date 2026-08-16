@@ -16,10 +16,6 @@ export default function FetchOnRender() {
     })();
   }, []);
 
-  useEffect(() => {
-    console.log(posts);
-  }, [posts]);
-
   return (
     <div className="root">
       <h1 className="heading">Fetch list of posts on render</h1>
