@@ -125,6 +125,23 @@ export function surveyReducer(state, action) {
         },
       };
 
+    case 'ADD_OPTION_TO_QUESTION':
+      return {
+        ...state,
+        questions: state.questions.map((q) => {
+          if (
+            q.id === action.payload.questionId &&
+            q.type === QUESTION_TYPES.MULTIPLE_CHOICE
+          ) {
+            return {
+              ...q,
+              options: [...q.questions.options, action.payload.optionText],
+            };
+          }
+          return q;
+        }),
+      };
+
     default:
       return state;
   }
