@@ -99,17 +99,15 @@ export function surveyReducer(state, action) {
       console.log('TODO: Implement UPDATE_QUESTION_TEXT action');
       return {
         ...state,
-        questions: [
-          ...state.questions.map((q) => {
-            if (q.id === action.payload.id) {
-              return {
-                ...q,
-                question: action.payload.newText,
-              };
-            }
-            return q;
-          }),
-        ],
+        questions: state.questions.map((q) => {
+          if (q.id === action.payload.id) {
+            return {
+              ...q,
+              question: action.payload.newText,
+            };
+          }
+          return q;
+        }),
       };
 
     case 'DELETE_QUESTION':
