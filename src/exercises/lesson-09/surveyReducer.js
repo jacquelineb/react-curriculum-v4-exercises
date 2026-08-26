@@ -168,6 +168,22 @@ export function surveyReducer(state, action) {
       };
     }
 
+    case 'DELETE_OPTION_FROM_QUESTION':
+      return {
+        ...state,
+        questions: state.questions.map((q) => {
+          if (q.id === action.payload.questionId && q.options.length > 3) {
+            return {
+              ...q,
+              options: q.options.filter(
+                (option, index) => index !== action.payload.optionIndex
+              ),
+            };
+          }
+          return q;
+        }),
+      };
+
     default:
       return state;
   }
