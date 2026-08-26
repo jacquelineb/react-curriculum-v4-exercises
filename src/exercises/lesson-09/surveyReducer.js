@@ -142,6 +142,32 @@ export function surveyReducer(state, action) {
         }),
       };
 
+    case 'UPDATE_OPTION_TEXT': {
+      const question = state.questions.find(
+        (q) => q.id === action.payload.questionId
+      );
+      const updatedOptions = [
+        ...question.options.slice(0, action.payload.optionIndex),
+        action.payload.newText,
+        ...question.options.slice(
+          action.payload.optionIndex + 1,
+          question.options.length
+        ),
+      ];
+      return {
+        ...state,
+        questions: state.questions.map((q) => {
+          if (q.id === action.payload.questionId) {
+            return {
+              ...q,
+              options: updatedOptions,
+            };
+          }
+          return q;
+        }),
+      };
+    }
+
     default:
       return state;
   }
