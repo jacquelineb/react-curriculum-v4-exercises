@@ -7,7 +7,7 @@ import styles from '../StudentWork.module.css';
 export function QuestionItem({ question }) {
   //HINT: use these with controlled form
   const [workingText, setWorkingText] = useState(question.question);
-  const { dispatch } = useContext(SurveyContext);
+  const { state, dispatch } = useContext(SurveyContext);
 
   // Helper function to convert type to title case
   const formatQuestionType = (type) => {
@@ -21,12 +21,25 @@ export function QuestionItem({ question }) {
   const handleEdit = () => {
     console.log('TODO: Implement edit functionality');
     // Hint: Use SET_EDITING_QUESTION action
+    dispatch({
+      type: 'SET_EDITING_QUESTION',
+      payload: {
+        questionId: question.id,
+      },
+    });
   };
 
   // TODO: Students will add save functionality here
   const handleSave = () => {
     console.log('TODO: Implement save functionality');
     // Hint: Use UPDATE_QUESTION_TEXT action with workingText
+    dispatch({
+      type: 'UPDATE_QUESTION_TEXT',
+      payload: {
+        id: question.id,
+        newText: workingText,
+      },
+    });
   };
 
   // TODO: Students will add delete functionality here
@@ -44,7 +57,8 @@ export function QuestionItem({ question }) {
         <div className={styles['question-actions']}>
           {/* TODO: Students add Edit and Delete buttons here */}
           <button className={styles['edit-btn']} onClick={handleEdit}>
-            Edit (TODO)
+            {/* Edit (TODO) */}
+            {state.ui.editingQuestionId !== question.id ? 'Edit' : 'Cancel'}
           </button>
           <button className={styles['delete-btn']} onClick={handleDelete}>
             Delete (TODO)
@@ -53,9 +67,38 @@ export function QuestionItem({ question }) {
       </div>
 
       {/* TODO: Students will add conditional controlled form to edit question here */}
-      <div className={styles['question-content']}>
+      {state.ui.editingQuestionId === question.id ? (
+        <form>
+          <input
+            value={workingText}
+            onChange={(e) => {
+              setWorkingText(e.target.value);
+            }}
+          />
+          <button type="button" onClick={handleSave}>
+            Save
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setWorkingText(question.question);
+              dispatch({
+                type: 'SET_EDITING_QUESTION',
+                payload: { questionId: null },
+              });
+            }}
+          >
+            Cancel
+          </button>
+        </form>
+      ) : (
+        <div className={styles['question-content']}>
+          <h3>{question.question}</h3>
+        </div>
+      )}
+      {/* <div className={styles['question-content']}>
         <h3>{question.question}</h3>
-      </div>
+      </div> */}
 
       {question.type === QUESTION_TYPES.MULTIPLE_CHOICE && (
         <div className={styles['options-section']}>
