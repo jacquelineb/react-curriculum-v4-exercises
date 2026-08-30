@@ -82,6 +82,7 @@ export function QuestionItem({ question }) {
       {state.ui.editingQuestionId === question.id ? (
         <form>
           <input
+            className={styles['question-input']}
             value={workingText}
             onChange={(e) => {
               setWorkingText(e.target.value);
@@ -120,50 +121,55 @@ export function QuestionItem({ question }) {
               <li key={index} className={styles['option-item']}>
                 {/* <span className={styles['option-text']}>{option}</span> */}
                 <input
+                  className={styles['option-input']}
                   data-option={`${question.id}-option-${index}`}
                   type="text"
-                  className={styles['option-text']}
                   defaultValue={option}
                 />
-                <button
-                  type="button"
-                  onClick={() => {
-                    const inputValue = document.querySelector(
-                      `[data-option="${question.id}-option-${index}"]`
-                    ).value;
-                    console.log(inputValue);
-                    dispatch({
-                      type: 'UPDATE_OPTION_TEXT',
-                      payload: {
-                        questionId: question.id,
-                        optionIndex: index,
-                        newText: inputValue,
-                      },
-                    });
-                  }}
-                >
-                  Save
-                </button>
-                <button
-                  type="button"
-                  disabled={question.options.length <= 2}
-                  onClick={() => {
-                    dispatch({
-                      type: 'DELETE_OPTION_FROM_QUESTION',
-                      payload: {
-                        questionId: question.id,
-                        optionIndex: index,
-                      },
-                    });
-                  }}
-                >
-                  Delete
-                </button>
+                <div className={styles['option-actions']}>
+                  <button
+                    type="button"
+                    className={styles['edit-btn']}
+                    onClick={() => {
+                      const inputValue = document.querySelector(
+                        `[data-option="${question.id}-option-${index}"]`
+                      ).value;
+                      console.log(inputValue);
+                      dispatch({
+                        type: 'UPDATE_OPTION_TEXT',
+                        payload: {
+                          questionId: question.id,
+                          optionIndex: index,
+                          newText: inputValue,
+                        },
+                      });
+                    }}
+                  >
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    disabled={question.options.length <= 2}
+                    className={styles['delete-btn']}
+                    onClick={() => {
+                      dispatch({
+                        type: 'DELETE_OPTION_FROM_QUESTION',
+                        payload: {
+                          questionId: question.id,
+                          optionIndex: index,
+                        },
+                      });
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
               </li>
             ))}
 
             <button
               type="button"
+              className={styles['add-option-btn']}
               onClick={() => {
                 const optionText = prompt('New Option:');
                 dispatch({
