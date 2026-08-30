@@ -7,6 +7,7 @@ import styles from '../StudentWork.module.css';
 export function QuestionItem({ question }) {
   //HINT: use these with controlled form
   const [workingText, setWorkingText] = useState(question.question);
+  const [workingOptionText, setWorkingOptionText] = useState('');
   const { state, dispatch } = useContext(SurveyContext);
 
   // Helper function to convert type to title case
@@ -106,7 +107,46 @@ export function QuestionItem({ question }) {
           <ul>
             {question.options.map((option, index) => (
               <li key={index} className={styles['option-item']}>
-                <span className={styles['option-text']}>{option}</span>
+                {/* <span className={styles['option-text']}>{option}</span> */}
+                <input
+                  data-option={`${question.id}-option-${index}`}
+                  type="text"
+                  className={styles['option-text']}
+                  defaultValue={option}
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const inputValue = document.querySelector(
+                      `[data-option="${question.id}-option-${index}"]`
+                    ).value;
+                    console.log(inputValue);
+                    dispatch({
+                      type: 'UPDATE_OPTION_TEXT',
+                      payload: {
+                        questionId: question.id,
+                        optionIndex: index,
+                        newText: inputValue,
+                      },
+                    });
+                  }}
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    dispatch({
+                      type: 'DELETE_OPTION_FROM_QUESTION',
+                      payload: {
+                        questionId: question.id,
+                        optionIndex: index,
+                      },
+                    });
+                  }}
+                >
+                  Delete
+                </button>
               </li>
             ))}
           </ul>
