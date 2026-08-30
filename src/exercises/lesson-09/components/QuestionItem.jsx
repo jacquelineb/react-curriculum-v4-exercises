@@ -135,6 +135,7 @@ export function QuestionItem({ question }) {
                 </button>
                 <button
                   type="button"
+                  disabled={question.options.length <= 2}
                   onClick={() => {
                     dispatch({
                       type: 'DELETE_OPTION_FROM_QUESTION',
