@@ -146,14 +146,13 @@ export function surveyReducer(state, action) {
       const question = state.questions.find(
         (q) => q.id === action.payload.questionId
       );
-      const updatedOptions = [
-        ...question.options.slice(0, action.payload.optionIndex),
-        action.payload.newText,
-        ...question.options.slice(
-          action.payload.optionIndex + 1,
-          question.options.length
-        ),
-      ];
+      const updatedOptions = question.options.map((option, index) => {
+        if (action.payload.optionIndex === index) {
+          return action.payload.newText;
+        }
+        return option;
+      });
+
       return {
         ...state,
         questions: state.questions.map((q) => {
