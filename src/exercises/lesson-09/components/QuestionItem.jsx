@@ -59,6 +59,14 @@ export function QuestionItem({ question }) {
     }
   };
 
+  const handleCancelEdit = () => {
+    setWorkingText(question.question);
+    dispatch({
+      type: 'SET_EDITING_QUESTION',
+      payload: { questionId: null },
+    });
+  };
+
   return (
     <div className={styles['question-item']}>
       <div className={styles['question-header']}>
@@ -96,13 +104,7 @@ export function QuestionItem({ question }) {
           <button
             type="button"
             className={styles['cancel-btn']}
-            onClick={() => {
-              setWorkingText(question.question);
-              dispatch({
-                type: 'SET_EDITING_QUESTION',
-                payload: { questionId: null },
-              });
-            }}
+            onClick={handleCancelEdit}
           >
             Cancel
           </button>
