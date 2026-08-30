@@ -7,7 +7,6 @@ import styles from '../StudentWork.module.css';
 export function QuestionItem({ question }) {
   //HINT: use these with controlled form
   const [workingText, setWorkingText] = useState(question.question);
-  const [workingOptionText, setWorkingOptionText] = useState('');
   const { state, dispatch } = useContext(SurveyContext);
 
   // Helper function to convert type to title case
@@ -109,9 +108,6 @@ export function QuestionItem({ question }) {
           <h3>{question.question}</h3>
         </div>
       )}
-      {/* <div className={styles['question-content']}>
-        <h3>{question.question}</h3>
-      </div> */}
 
       {question.type === QUESTION_TYPES.MULTIPLE_CHOICE && (
         <div className={styles['options-section']}>
@@ -134,7 +130,6 @@ export function QuestionItem({ question }) {
                       const inputValue = document.querySelector(
                         `[data-option="${question.id}-option-${index}"]`
                       ).value;
-                      console.log(inputValue);
                       dispatch({
                         type: 'UPDATE_OPTION_TEXT',
                         payload: {
