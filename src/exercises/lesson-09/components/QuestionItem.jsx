@@ -150,6 +150,22 @@ export function QuestionItem({ question }) {
                 </button>
               </li>
             ))}
+
+            <button
+              type="button"
+              onClick={() => {
+                const optionText = prompt('New Option:');
+                dispatch({
+                  type: 'ADD_OPTION_TO_QUESTION',
+                  payload: {
+                    questionId: question.id,
+                    optionText,
+                  },
+                });
+              }}
+            >
+              + Add Option
+            </button>
           </ul>
         </div>
       )}

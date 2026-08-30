@@ -135,7 +135,7 @@ export function surveyReducer(state, action) {
           ) {
             return {
               ...q,
-              options: [...q.questions.options, action.payload.optionText],
+              options: [...q.options, action.payload.optionText],
             };
           }
           return q;
