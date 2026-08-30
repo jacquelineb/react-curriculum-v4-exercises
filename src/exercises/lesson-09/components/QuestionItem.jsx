@@ -86,11 +86,16 @@ export function QuestionItem({ question }) {
               setWorkingText(e.target.value);
             }}
           />
-          <button type="button" onClick={handleSave}>
+          <button
+            type="button"
+            className={styles['save-btn']}
+            onClick={handleSave}
+          >
             Save
           </button>
           <button
             type="button"
+            className={styles['cancel-btn']}
             onClick={() => {
               setWorkingText(question.question);
               dispatch({
