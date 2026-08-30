@@ -75,7 +75,14 @@ export function QuestionItem({ question }) {
         </span>
         <div className={styles['question-actions']}>
           {/* TODO: Students add Edit and Delete buttons here */}
-          <button className={styles['edit-btn']} onClick={handleEdit}>
+          <button
+            className={styles['edit-btn']}
+            onClick={() => {
+              state.ui.editingQuestionId !== question.id
+                ? handleEdit()
+                : handleCancelEdit();
+            }}
+          >
             {state.ui.editingQuestionId !== question.id ? 'Edit' : 'Cancel'}
           </button>
           <button className={styles['delete-btn']} onClick={handleDelete}>
