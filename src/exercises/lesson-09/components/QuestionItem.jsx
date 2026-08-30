@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { SurveyContext } from '../SurveyContext';
 import { QUESTION_TYPES } from '../surveyReducer';
 import styles from '../StudentWork.module.css';
@@ -8,6 +8,19 @@ export function QuestionItem({ question }) {
   //HINT: use these with controlled form
   const [workingText, setWorkingText] = useState(question.question);
   const { state, dispatch } = useContext(SurveyContext);
+
+  useEffect(() => {
+    /* Without this effect, if you start editing question X and then click the Edit button for
+    question Y without canceling the edit for question X, then going back again to edit question X
+    will show text from the old edit. Eg, if you edit question X from "How are you?" to "How are"
+    and then click Edit on another question, and then click back again to edit question X, the text
+    in the input box for editing question X will show up as "How are", instead of its actual value
+    of "How are you?"
+    */
+    if (state.ui.editingQuestionId !== question.id) {
+      setWorkingText(question.question);
+    }
+  }, [state.ui.editingQuestionId]);
 
   // Helper function to convert type to title case
   const formatQuestionType = (type) => {
