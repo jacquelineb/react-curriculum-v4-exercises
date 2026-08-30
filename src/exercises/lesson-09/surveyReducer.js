@@ -171,7 +171,7 @@ export function surveyReducer(state, action) {
       return {
         ...state,
         questions: state.questions.map((q) => {
-          if (q.id === action.payload.questionId && q.options.length > 3) {
+          if (q.id === action.payload.questionId && q.options.length > 2) {
             return {
               ...q,
               options: q.options.filter(
