@@ -47,6 +47,17 @@ export function QuestionItem({ question }) {
   const handleDelete = () => {
     console.log('TODO: Implement delete functionality');
     // Hint: Show confirmation dialog, then use DELETE_QUESTION action
+    const deleteIsConfirmed = window.confirm(
+      'Are you sure you want to delete this question?'
+    );
+    if (deleteIsConfirmed) {
+      dispatch({
+        type: 'DELETE_QUESTION',
+        payload: {
+          id: question.id,
+        },
+      });
+    }
   };
 
   return (
@@ -62,7 +73,7 @@ export function QuestionItem({ question }) {
             {state.ui.editingQuestionId !== question.id ? 'Edit' : 'Cancel'}
           </button>
           <button className={styles['delete-btn']} onClick={handleDelete}>
-            Delete (TODO)
+            Delete
           </button>
         </div>
       </div>
