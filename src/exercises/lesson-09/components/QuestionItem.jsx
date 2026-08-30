@@ -68,7 +68,6 @@ export function QuestionItem({ question }) {
         <div className={styles['question-actions']}>
           {/* TODO: Students add Edit and Delete buttons here */}
           <button className={styles['edit-btn']} onClick={handleEdit}>
-            {/* Edit (TODO) */}
             {state.ui.editingQuestionId !== question.id ? 'Edit' : 'Cancel'}
           </button>
           <button className={styles['delete-btn']} onClick={handleDelete}>
@@ -115,7 +114,6 @@ export function QuestionItem({ question }) {
           <ul>
             {question.options.map((option, index) => (
               <li key={index} className={styles['option-item']}>
-                {/* <span className={styles['option-text']}>{option}</span> */}
                 <input
                   className={styles['option-input']}
                   data-option={`${question.id}-option-${index}`}
