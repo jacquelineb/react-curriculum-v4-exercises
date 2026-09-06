@@ -10,7 +10,6 @@ import Footer from './components/Footer.jsx';
 import { products as p } from './data/products.js';
 
 export default function StudentWork() {
-  console.log(p);
   const [user, setUser] = useState({
     isLoggedIn: true,
     firstName: 'Avery',
